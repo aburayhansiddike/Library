@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_POST)) {
-    $users = json_decode(file_get_contents('../database/books.json'), true);
+    $books = json_decode(file_get_contents('../database/books.json'), true);
 
     $new = [
         'title' => $_POST['title'],
@@ -10,10 +10,10 @@ if (isset($_POST)) {
         'pages' => $_POST['total_page'],
         'isbn' => $_POST['isbn'],
     ];
-    
-    $users[] = $new;
 
-    file_put_contents('../database/books.json', json_encode($users));
+    $books[] = $new;
+
+    file_put_contents('../database/books.json', json_encode($books));
 
     header('Location: index.php');
 }

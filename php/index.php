@@ -1,11 +1,11 @@
 
 <?php
-    $users = '' ;
+    $books = '' ;
     $filename = '../database/books.json';
     if(file_exists($filename)){
 
         $data = file_get_contents($filename);
-        $users = json_decode($data);
+        $books = json_decode($data);
     }
 ?>
 
@@ -59,7 +59,7 @@
             <?php $index = 1 ;
             ?>
 
-            <?php foreach($users as $user): ?>
+            <?php foreach($books as $user): ?>
             <div class="table-row">
                  <div class="table-cell">
                     <p><?php echo $index; ?></p>
