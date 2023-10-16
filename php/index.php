@@ -7,6 +7,19 @@
         $data = file_get_contents($filename);
         $books = json_decode($data);
     }
+
+    $searchBookName = $_GET['searchBookName'];
+
+   $result = [];
+   for($i = 0 ; $i < count($books); $i++){
+        if(stripos($books[$i]->title, $searchBookName) !== false){
+            $result[] = $books[$i];
+        }
+   }
+
+   if (! empty ($searchBookName)) {
+        $books = $result;
+   }
 ?>
 
 
@@ -23,16 +36,13 @@
 <body>
       <div class="wrapper">
             <div class="main">
-                 <form action="search_process.php" method="get">
-                   <input type="text" name="searchBookName" placeholder="Type to search">
+                 <form action="index.php" method="get">
+                   <input type="text" name="searchBookName" value="<?= $searchBookName ?>" placeholder="Type to search">
                    <button class="search-button" type="submit" ><i class="fa fa-search icon-search"></i></button>
                  </form>
             </div>
             <div>
                   <button  class="btn add-button" onclick="window.location = 'book_registration_form.php'"><i class="fa fa-plus"></i> add</button>
-            </div>
-            <div>
-                  <button class="btn delete-button" onclick="window.location = 'delete_form.php'"><i class="fa fa-trash-o"></i> delete</button>
             </div>
       </div>
 
@@ -52,6 +62,9 @@
                      </div>
                      <div class="table-cell">
                         <p>Stock</p>
+                     </div>
+                     <div class="table-cell">
+                        <p>Actions</p>
                      </div>
                 </div>
             </div>
@@ -75,6 +88,13 @@
                  </div>
                  <div class="table-cell">
                      <p> <?= $user->available ?> </p>
+                 </div>
+                 <div class="table-cell">
+                     <form onsubmit="return confirm('Are you sure?');" action="delete_process.php" method="POST">
+                        <input type="hidden" name="index" value="<?= $index ?>">
+                        <a style="margin-right: .5rem;" href="edit.php">Edit</a>
+                        <button type="submit">Delete</button>
+                     </form>
                  </div>
             </div>
             <?php $index++ ?>

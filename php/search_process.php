@@ -5,7 +5,7 @@
    $bookIndex = -1 ;
    //echo count($bookJson) ;
    for($i = 0 ; $i < count($bookJson); $i++){
-        if(strcmp($bookJson[$i]['title'], $searchBookName) == 0){
+        if(stripos($bookJson[$i]['title'], $searchBookName) !== false){
                 $bookIndex = $i ;
                 break ;
         }

@@ -62,13 +62,15 @@ class Book{
 
     // Implement the magic method: __toString()
     public function __toString(){
-        $details= 
-        "</br>ISBN: ".$this->isbn."</br>".
-        "Title: ".$this->title."</br>".
-        "Author: ".$this->author."</br>".
-        "Available: ".$this->available;
+        return json_encode(get_object_vars($this));
+    }
 
-        return $details;
+    public function save() {
+        $books = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'].'/database/books.json'), true);
+
+        $books[] = get_object_vars($this);
+
+        file_put_contents($_SERVER['DOCUMENT_ROOT'].'/database/books.json', json_encode($books));
     }
 
     // Implement the magic method: __call()
